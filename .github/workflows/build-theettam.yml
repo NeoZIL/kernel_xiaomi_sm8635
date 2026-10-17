@@ -117,14 +117,14 @@ jobs:
           ZIP_VERSION: ${{ env.THEETTAM_VERSION }}
           APATCH_SUPERKEY: ${{ inputs.apatch_superkey }}
           KMI_STRICT: "1"
-          SKIP_ZIP: ${{ matrix.flavor == 'plain' && '1' || '0' }}
+          SKIP_ZIP: "0"
         run: |
           set -euo pipefail
           export CLANG_DIR="$HOME/clang"
           scripts/ci/build-flavor.sh "${{ matrix.flavor }}"
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        if: matrix.flavor != 'plain'
+        
         with:
           name: zip-${{ matrix.flavor }}
           path: dist/*.zip
